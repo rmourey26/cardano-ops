@@ -59,7 +59,7 @@ let
   };
 
   benchmarkingLogConfig = name: {
-    StubComputeDuration = 0;
+    StubComputeDuration = 0.5;
     StubComputePrecision = 0.01;
 
     defaultScribes = [
