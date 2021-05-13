@@ -169,6 +169,8 @@ in (rec {
                TurnOnLogMetrics = true;
                TraceMempool     = true;
                TraceTxInbound   = true;
+               TraceChainSyncHeaderServer = true;
+               TraceChainSyncClient = true;
              }));
       services.custom-metrics.enable = mkForce false;
     }) (benchmarkingTopology.coreNodes or []);
