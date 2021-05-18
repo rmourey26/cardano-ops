@@ -73,15 +73,15 @@
         "version": "cc7f4ddf78182fb14c8d34516e6c72408ad3eb35o"
     },
     "cardano-node": {
-        "branch": "refs/tags/1.27.0",
+        "branch": "jbgi/p2p-master",
         "description": null,
         "homepage": null,
         "owner": "input-output-hk",
         "repo": "cardano-node",
-        "rev": "8fe46140a52810b6ca456be01d652ca08fe730bf",
-        "sha256": "1c9zc899wlgicrs49i33l0bwb554acsavzh1vcyhnxmpm0dmy8vj",
+        "rev": "f327d3d890c62f56efbc1967ef0dc80b72d5c218",
+        "sha256": "1in1fg5pzvgjlryca715ri9b5bgi7h0hy160fg7bga0ddy1p3l3l",
         "type": "tarball",
-        "url": "https://github.com/input-output-hk/cardano-node/archive/8fe46140a52810b6ca456be01d652ca08fe730bf.tar.gz",
+        "url": "https://github.com/input-output-hk/cardano-node/archive/f327d3d890c62f56efbc1967ef0dc80b72d5c218.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "cardano-rosetta": {
@@ -97,15 +97,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "iohk-nix": {
-        "branch": "master",
+        "branch": "p2p",
         "description": "nix scripts shared across projects",
         "homepage": null,
         "owner": "input-output-hk",
         "repo": "iohk-nix",
-        "rev": "bc4216c5b0e14dbde5541763f4952f99c3c712fa",
-        "sha256": "0y5n3limj5dg1vgxyxafg0ky35qq7w97rr00gr3yl16xx5jrhs6w",
+        "rev": "3e1e197862b0162054c9f5914ce2d37dd3940e86",
+        "sha256": "1m776l59xj39zih4d4grn2wwsaqy4w5hnqk5bhx0r59wdd6ykw3f",
         "type": "tarball",
-        "url": "https://github.com/input-output-hk/iohk-nix/archive/bc4216c5b0e14dbde5541763f4952f99c3c712fa.tar.gz",
+        "url": "https://github.com/input-output-hk/iohk-nix/archive/3e1e197862b0162054c9f5914ce2d37dd3940e86.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {

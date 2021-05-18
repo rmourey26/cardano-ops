@@ -3,7 +3,8 @@ let
   inherit (pkgs.lib)
     attrValues attrNames filter filterAttrs flatten foldl' hasAttrByPath listToAttrs
     mapAttrs' mapAttrs nameValuePair recursiveUpdate unique optional any concatMap
-    getAttrs optionalString hasPrefix take drop length concatStringsSep;
+    getAttrs optionalString hasPrefix take drop length concatStringsSep head toLower
+    elem;
 
   inherit (globals.topology) coreNodes relayNodes;
   privateRelayNodes = globals.topology.privateRelayNodes or [];
@@ -130,9 +131,17 @@ let
           (take 200 relays)
         else relays));
         in mkRelayRecords "" (_: true)
-        // mkRelayRecords "asia-pacific" (n: hasPrefix "ap" n.region)
-        // mkRelayRecords "north-america" (n: hasPrefix "us" n.region)
-        // mkRelayRecords "europe" (n: hasPrefix "eu" n.region);
+          // mkRelayRecords "asia-pacific" (n: hasPrefix "ap" n.region)
+          // mkRelayRecords "north-america" (n: hasPrefix "us" n.region)
+          // mkRelayRecords "europe" (n: hasPrefix "eu" n.region)
+          // (
+            let records = map (stkNode: let
+              ticker = stkNode.ticker
+                or (head (builtins.match "stk-.-.-(.+)" stkNode.name));
+              in mkRelayRecords (toLower ticker) (r: elem stkNode.name r.producers)
+            ) coreNodes;
+            in foldl' (a: b: a // b) {} records);
+
     };
     defaults = { name, resources, config, ... }: {
       deployment.ec2 = {
