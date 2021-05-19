@@ -25,7 +25,10 @@ cd "$(dirname "$0")/.."
 [ -z ${SLOT_LENGTH+x} ]&& ( echo "Environment variable SLOT_LENGTH must be defined"; exit 1)
 [ -z ${NETWORK_MAGIC+x} ]&& ( echo "Environment variable NETWORK_MAGIC must be defined"; exit 1)
 
+export NB_CORE_NODES=$(($NB_BFT_NODES + $NB_POOL_NODES))
 DELAY="${DELAY:-30}"
+UTXO_KEYS="${UTXO_KEYS:-3}"
+DPARAM=$(awk "BEGIN{print 1.0 - 1.0 * $NB_POOL_NODES / $NB_CORE_NODES}")
 
 echo "Generating new genesis and keys using following environments variables:
 
@@ -37,9 +40,8 @@ echo "Generating new genesis and keys using following environments variables:
  SLOT_LENGTH=$SLOT_LENGTH
  NETWORK_MAGIC=$NETWORK_MAGIC
  DELAY=$DELAY (delay in minutes before genesis systemStart)
+ DPARAM=$DPARAM (decentralization parameter)
 "
-
-export NB_CORE_NODES=$(($NB_BFT_NODES + $NB_POOL_NODES))
 
 mkdir -p keys
 cd keys
@@ -50,13 +52,13 @@ fi
 
 cardano-cli genesis create-staked \
             --genesis-dir . \
-            --supply $(($NB_BFT_NODES * (2 * $MAX_SUPPLY / 3) / $NB_CORE_NODES)) \
-            --supply-delegated $(($NB_POOL_NODES * (2 * $MAX_SUPPLY / 3) / $NB_POOL_NODES)) \
+            --supply $((($NB_BFT_NODES + $UTXO_KEYS) * (2 * $MAX_SUPPLY) / (3 * $NB_CORE_NODES))) \
+            --supply-delegated $(($NB_POOL_NODES * (2 * $MAX_SUPPLY) / (3 * $NB_POOL_NODES))) \
             --gen-genesis-keys $NB_BFT_NODES \
             --gen-pools $NB_POOL_NODES \
             --gen-stake-delegs $NB_POOL_NODES \
-            --gen-utxo-keys 3 \
-            --start-time `date -u -d "today + 30 minutes" +'%Y-%m-%dT%H:%M:%SZ'` \
+            --gen-utxo-keys $UTXO_KEYS \
+            --start-time `date -u -d "today + $DELAY minutes" +'%Y-%m-%dT%H:%M:%SZ'` \
             --testnet-magic $NETWORK_MAGIC
 
 # Customize the genesis file
@@ -76,6 +78,7 @@ sed -Ei "s/^([[:blank:]]*\"slotLength\":)([[:blank:]]*[^,]*,)$/\1 $SLOT_LENGTH,/
 sed -Ei "s/^([[:blank:]]*\"securityParam\":)([[:blank:]]*[^,]*)$/\1 $K/" genesis.json
 sed -Ei "s/^([[:blank:]]*\"activeSlotsCoeff\":)([[:blank:]]*[^,]*,)$/\1 $F,/" genesis.json
 sed -Ei "s/^([[:blank:]]*\"maxLovelaceSupply\":)([[:blank:]]*[^,]*,)$/\1 $MAX_SUPPLY,/" genesis.json
+sed -Ei "s/^([[:blank:]]*\"decentralisationParam\":)([[:blank:]]*[^,]*)$/\1 $DPARAM/" genesis.json
 
 cardano-cli genesis hash --genesis genesis.json > GENHASH
 
