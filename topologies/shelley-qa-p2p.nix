@@ -23,14 +23,15 @@ let
       };
     })
   ]) (concatLists [
-    (mkStakingPoolNodes 1 "d" "a" "P2P1")
-    (mkStakingPoolNodes 2 "e" "b" "P2P2")
-    (mkStakingPoolNodes 3 "f" "c" "P2P3")
+    #[ (mkBftCoreNode "a" 1 { org = "IOHK"; nodeId = 1; }) ]
+    (mkStakingPoolNodes 2 "d" "a" "P2P1")
+    (mkStakingPoolNodes 3 "e" "b" "P2P2")
+    (mkStakingPoolNodes 4 "f" "c" "P2P3")
   ]);
 
-  relayNodes = filter (n: !(n.stakePool or false)) nodes;
+  relayNodes = filter (n: !(n ? stakePool)) nodes;
 
-  coreNodes = filter (n: n.stakePool or false) nodes;
+  coreNodes = filter (n: n ? stakePool) nodes;
 
 in {
 

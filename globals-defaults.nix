@@ -75,6 +75,7 @@ in {
 
       GENESIS_PATH = toString genesisFile;
       # Network parameters.
+      NETWORK_MAGIC = toString genesis.networkMagic;
       EPOCH_LENGTH = toString genesis.epochLength;
       SLOT_LENGTH = toString genesis.slotLength;
       K = toString genesis.securityParam;
