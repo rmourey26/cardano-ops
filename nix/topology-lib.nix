@@ -260,7 +260,7 @@ pkgs: regions: with pkgs; with lib; rec {
       producers = [
         stkNode.name
         relay2.name
-        (envRegionalRelaysProducer region 3)
+        globals.environmentConfig.relaysNew
       ];
     };
     relay2 = rec {

@@ -18,7 +18,7 @@ let
     (withAutoRestartEvery 6)
     (withModule {
       services.cardano-node = {
-        asserts = true;
+        # asserts = true;
         systemdSocketActivation = mkForce false;
       };
     })
@@ -28,7 +28,8 @@ let
     (mkStakingPoolNodes 3 "c" "f" "P2P3")
   ]);
 
-  relayNodes = filter (n: !(n ? stakePool)) nodes;
+  relayNodes = fullyConnectNodes
+    (filter (n: !(n ? stakePool)) nodes);
 
   coreNodes = filter (n: n ? stakePool) nodes;
 
