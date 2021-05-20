@@ -73,15 +73,27 @@
         "version": "cc7f4ddf78182fb14c8d34516e6c72408ad3eb35o"
     },
     "cardano-node": {
-        "branch": "jbgi/p2p-master",
+        "branch": "refs/tags/1.27.0",
         "description": null,
         "homepage": null,
         "owner": "input-output-hk",
         "repo": "cardano-node",
-        "rev": "e4fdba17b4b53a376c316c459fa3f2e2cd881ca6",
-        "sha256": "10asnh1rg7gbrllg4jjf51wsin609dhx9djxg2y7pvng39vjy02c",
+        "rev": "8fe46140a52810b6ca456be01d652ca08fe730bf",
+        "sha256": "1c9zc899wlgicrs49i33l0bwb554acsavzh1vcyhnxmpm0dmy8vj",
         "type": "tarball",
-        "url": "https://github.com/input-output-hk/cardano-node/archive/e4fdba17b4b53a376c316c459fa3f2e2cd881ca6.tar.gz",
+        "url": "https://github.com/input-output-hk/cardano-node/archive/8fe46140a52810b6ca456be01d652ca08fe730bf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "cardano-node-service": {
+        "branch": "jbgi/p2p-master",
+        "description": "The core component that is used to participate in a Cardano decentralised blockchain.",
+        "homepage": "https://cardano.org",
+        "owner": "input-output-hk",
+        "repo": "cardano-node",
+        "rev": "675bebc2e7bb9f39f983dec9129a2c16eb184afe",
+        "sha256": "0ssz5x6s05dc9mvfpyhdzykcq3179xvrxzwf8palhr171nxzdy6w",
+        "type": "tarball",
+        "url": "https://github.com/input-output-hk/cardano-node/archive/675bebc2e7bb9f39f983dec9129a2c16eb184afe.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "cardano-rosetta": {

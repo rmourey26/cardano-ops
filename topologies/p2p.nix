@@ -19,6 +19,8 @@ let
     (withModule {
       services.cardano-node = {
         # asserts = true;
+        useNewTopology = true;
+        package = cardanoNodeServicePkgs.cardanoNodeHaskellPackages.cardano-node.components.exes.cardano-node;
         systemdSocketActivation = mkForce false;
       };
     })
@@ -36,13 +38,6 @@ let
 in {
 
   inherit coreNodes relayNodes;
-
-  explorer = {
-    services.cardano-node = {
-      systemdSocketActivation = mkForce false;
-      package = mkForce cardano-node;
-    };
-  };
 
   monitoring = {
     services.monitoring-services.publicGrafana = false;
