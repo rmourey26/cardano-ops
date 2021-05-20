@@ -14,6 +14,10 @@ pkgs: with pkgs; with lib; with topology-lib {
   };
 let
 
+  bftNodes = [
+    (mkBftCoreNode "a" 1 { org = "IOHK"; nodeId = 1; })
+  ];
+
   nodes = with regions; map (composeAll [
     (withAutoRestartEvery 6)
     (withModule {
@@ -28,12 +32,10 @@ let
     (mkStakingPoolNodes "a" 1 "d" "P2P1" { org = "IOHK"; nodeId = 2; })
     (mkStakingPoolNodes "b" 2 "e" "P2P2" { org = "IOHK"; nodeId = 3; })
     (mkStakingPoolNodes "c" 3 "f" "P2P3" { org = "IOHK"; nodeId = 4; })
-  ] ++ [
-    (mkBftCoreNode "a" 1 { org = "IOHK"; nodeId = 1; })
-  ]);
+  ] ++ bftNodes);
 
-  relayNodes = fullyConnectNodes
-    (filter (n: !(n ? stakePool)) nodes);
+  relayNodes = regionalConnectGroupWith bftNodes (fullyConnectNodes
+    (filter (n: !(n ? stakePool)) nodes));
 
   coreNodes = filter (n: n ? stakePool) nodes;
 
