@@ -102,7 +102,8 @@ cd node-keys
 # Link VRF keys for the BFT nodes.
 for i in `seq 1 $NB_BFT_NODES`; do
   ln -sf ../delegate-keys/delegate$i.vrf.skey node-vrf$i.skey
-  ln -sf ../delegate-keys/delegate$i.vrf.vkey node-vrf$i.vkey
+  ln -sf ../delegate-keys/delegate$i.key.skey node-kes$i.vkey
+  ln -sf ../delegate-keys/opcert$i.cert node$i.opcert
 done
 # Link VRF keys for the staking pool nodes.
 for p in `seq 1 $NB_POOL_NODES`; do
