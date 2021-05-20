@@ -74,6 +74,7 @@ in {
       NB_POOL_NODES = toString (builtins.length stkNodes);
 
       GENESIS_PATH = toString genesisFile;
+      BYRON_GENESIS_PATH = toString globals.environmentConfig.nodeConfig.ByronGenesisFile;
       # Network parameters.
       NETWORK_MAGIC = toString genesis.networkMagic;
       EPOCH_LENGTH = toString genesis.epochLength;

@@ -6,15 +6,14 @@ pkgs: with pkgs.iohkNix.cardanoLib; with pkgs.globals; {
   environmentConfig = rec {
     relaysNew = "relays.${domain}";
     genesisFile = ./keys/genesis.json;
-    genesisHash = builtins.replaceStrings ["\n"] [""] (builtins.readFile ./keys/GENHASH);
     nodeConfig =
       pkgs.lib.recursiveUpdate
       environments.shelley_qa.nodeConfig
       {
         ShelleyGenesisFile = genesisFile;
-        ShelleyGenesisHash = genesisHash;
-        ByronGenesisFile = ./keys/byron-genesis.json;
-        ByronGenesisHash = "051e9d91904a9d9e6a9783b4cf102dde32713ac6c628a15577e373a1e4701b27";
+        ShelleyGenesisHash = builtins.replaceStrings ["\n"] [""] (builtins.readFile ./keys/GENHASH);
+        ByronGenesisFile = ./keys/byron/genesis.json;
+        ByronGenesisHash = builtins.replaceStrings ["\n"] [""] (builtins.readFile ./keys/byron/GENHASH);
         TestShelleyHardForkAtEpoch = 1;
         TestAllegraHardForkAtEpoch = 2;
         TestMaryHardForkAtEpoch = 3;
