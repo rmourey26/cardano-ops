@@ -43,6 +43,12 @@ in {
 
   inherit coreNodes relayNodes;
 
+  explorer = {
+    services.cardano-node = {
+      package = mkForce cardano-node;
+    };
+  };
+
   monitoring = {
     services.monitoring-services.publicGrafana = false;
     services.nginx.virtualHosts."monitoring.${globals.dnsZone}".locations."/p" = {
