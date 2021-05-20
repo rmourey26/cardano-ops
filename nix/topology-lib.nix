@@ -242,38 +242,32 @@ pkgs: regions: with pkgs; with lib; rec {
 
   /* Make a 3 nodes : 1 block producer, 2 relay, independent staking pool setup.
   */
-  mkStakingPoolNodes = id: r1: r2: ticker: let
+  mkStakingPoolNodes = r1: id: r2: ticker: def: let
     stkNode = {
       name = "stk-${r1}-${toString id}-${ticker}";
       region = regions.${r1}.name;
-      org = "IOHK";
       stakePool = true;
-      nodeId = id;
       inherit ticker;
       producers = [ relay1.name relay2.name ];
-    };
+    } // def;
     relay1 = rec {
       name = "rel-${r1}-${toString id}";
       region = regions.${r1}.name;
-      org = "IOHK";
-      nodeId = id + 1;
       producers = [
         stkNode.name
         relay2.name
         globals.environmentConfig.relaysNew
       ];
-    };
+    } // def;
     relay2 = rec {
       name = "rel-${r2}-${toString id}";
       region = regions.${r2}.name;
-      org = "IOHK";
-      nodeId = id + 2;
       producers = [
         stkNode.name
         relay1.name
         (envRegionalRelaysProducer region 3)
       ];
-    };
+    } // def;
   in [
     stkNode
     relay1
