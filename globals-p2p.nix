@@ -13,10 +13,12 @@ pkgs: with pkgs.iohkNix.cardanoLib; with pkgs.globals; {
       {
         ShelleyGenesisFile = genesisFile;
         ShelleyGenesisHash = genesisHash;
-        Protocol = "TPraos";
-        TraceTxInbound = true;
-        TestAllegraHardForkAtEpoch = 1;
-        TestMaryHardForkAtEpoch = 2;
+        Protocol = "Cardano";
+        ByronGenesisFile = ./keys/byron-genesis.json;
+        ByronGenesisHash = "051e9d91904a9d9e6a9783b4cf102dde32713ac6c628a15577e373a1e4701b27";
+        TestShelleyHardForkAtEpoch = 1;
+        TestAllegraHardForkAtEpoch = 2;
+        TestMaryHardForkAtEpoch = 3;
       };
     explorerConfig = mkExplorerConfig environmentName nodeConfig;
   };
