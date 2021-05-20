@@ -94,6 +94,8 @@ if [ -f $BYRON_GENESIS_PATH ]; then
   < $BYRON_GENESIS_PATH \
   > ./byron-genesis.spec.json
 
+  rm -rf byron
+
   cardano-cli byron genesis genesis \
     --protocol-magic $NETWORK_MAGIC \
     --start-time `date +\%s -d "$SYSTEM_START"` \

@@ -135,10 +135,9 @@ let
           // mkRelayRecords "north-america" (n: hasPrefix "us" n.region)
           // mkRelayRecords "europe" (n: hasPrefix "eu" n.region)
           // (
-            let records = map (stkNode: let
-              ticker = stkNode.ticker
-                or (head (builtins.match "stk-.-.-(.+)" stkNode.name));
-              in mkRelayRecords (toLower ticker) (r: elem stkNode.name r.producers)
+            let records = map (coreNode: if coreNode ? ticker
+              then mkRelayRecords (toLower coreNode.ticker) (r: elem coreNode.name r.producers)
+              else {}
             ) coreNodes;
             in foldl' (a: b: a // b) {} records);
 

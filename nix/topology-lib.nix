@@ -238,7 +238,9 @@ pkgs: regions: with pkgs; with lib; rec {
       [ (regionalRelaysProducer region 3) ];
     org = "IOHK";
     stakePool = true;
-  } // attrs;
+  } // (optionalAttrs (ticker != "") {
+    inherit ticker;
+  }) // attrs;
 
   /* Make a 3 nodes : 1 block producer, 2 relay, independent staking pool setup.
   */
