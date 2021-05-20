@@ -30,6 +30,7 @@ let
     addrs = map (n: {
       addr = let a = n.addr or n; in if (nodes ? ${a}) then hostName a else a;
       port = n.port or nodePort;
+      valency = n.valency or 1;
     }) producers;
     valency = length producers;
   };

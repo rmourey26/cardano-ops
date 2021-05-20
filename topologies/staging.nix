@@ -20,9 +20,7 @@ pkgs: with pkgs; with lib; with topology-lib {
   };
 let
 
-  bftCoreNodes = let
-    mkBftCoreNode = mkBftCoreNode regions;
-  in regionalConnectGroupWith (reverseList stakingPoolNodes) (fullyConnectNodes [
+  bftCoreNodes = regionalConnectGroupWith (reverseList stakingPoolNodes) (fullyConnectNodes [
     # OBFT centralized nodes recovery nodes
     (mkBftCoreNode "a" 1 {
       org = "IOHK";
